@@ -14,13 +14,13 @@
             <tbody>
                 @foreach ($tasks as $task)
                 <tr>
-                    <td><a class="link link-hover text-info" href="{{ route('task.show', $task->id) }}">{{ $task->id }}</a></td>
+                    <td><a class="link link-hover text-info" href="{{ route('tasks.show', $task->id) }}">{{ $task->id }}</a></td>
                     <td>{{ $task->content }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     @endif                                        
-    <a class="btn btn-primary" href="{{ route('task.create') }}">タスクの登録</a> 
+    <a class="btn btn-primary" href="{{ route('tasks.create') }}">タスクの登録</a> 
 
 @endsection

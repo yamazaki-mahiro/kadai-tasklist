@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TasksController;
 
@@ -16,15 +17,18 @@ use App\Http\Controllers\TasksController;
 Route::get('/', [TasksController::class, 'index']);
 Route::resource('tasks', TasksController::class);
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('tasks/{id}', [TasksController::class, 'show'])->name('task.show');
-// Route::post('tasks', [TasksController::class, 'store'])->name('task.store');
-// Route::put('tasks/{id}', [TasksController::class, 'update'])->name('task.update');
-// Route::delete('tasks/{id}', [TasksController::class, 'destroy'])->name('task.destroy');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// // index: showの補助ページ
-// Route::get('tasks', [TasksController::class, 'index'])->name('task.index');
-// // create: 新規作成用のフォームページ
-// Route::get('tasks/create', [TasksController::class, 'create'])->name('task.create');
-// // edit: 更新用のフォームページ
-// Route::get('tasks/{id}/edit', [TasksController::class, 'edit'])->name('task.edit');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

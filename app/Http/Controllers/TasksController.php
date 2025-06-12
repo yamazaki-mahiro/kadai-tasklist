@@ -148,12 +148,4 @@ class TasksController extends Controller
         }
         return redirect('/');
     }
-
-    public function checkAuth($id)
-    { 
-        if (\Auth::check()) {
-            return redirect('/top');
-        }
-    }
-
 }

@@ -20,4 +20,5 @@ export default {
     },
 
     plugins: [forms],
+    plugins: [typography, daisyui],     // 追記
 };

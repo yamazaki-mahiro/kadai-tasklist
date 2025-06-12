@@ -39,7 +39,6 @@ class TasksController extends Controller
     {   
         if (\Auth::check()) {
             $task = new Task;
-
             // タスク作成ビューを表示
             return view('tasks.create', [
                 'task' => $task,
@@ -78,6 +77,11 @@ class TasksController extends Controller
     {   
         if (\Auth::check()) {
             $task = Task::findOrFail($id);
+            $user = \Auth::user();
+            $userId = $user->id;
+            if(!($task->user_id == $userId)){
+                return redirect('/top');
+            }
             return view('tasks.show', [
                 'task' => $task,
             ]);
@@ -92,6 +96,11 @@ class TasksController extends Controller
     {
         if (\Auth::check()) {
             $task = Task::findOrFail($id);
+            $user = \Auth::user();
+            $userId = $user->id;
+            if(!($task->user_id == $userId)){
+                return redirect('/top');
+            }
             return view('tasks.edit', [
                 'task' => $task,
             ]);
